@@ -1,5 +1,5 @@
 const { ContextMenuCommandBuilder } = require('@discordjs/builders');
-const { MessageContextMenuInteraction, Message, MessageEmbed, MessageActionRow, MessageButton } = require('discord.js');
+const { MessageContextMenuInteraction, Message, MessageEmbed, MessageActionRow, MessageButton, MessageAttachment } = require('discord.js');
 
 module.exports = {
     data: new ContextMenuCommandBuilder()
@@ -10,8 +10,7 @@ module.exports = {
      * @param {MessageContextMenuInteraction} interaction
      */
     async execute(interaction){
-        console.log(this.data.toJSON());
-        interaction.deferReply({ephemeral: true});
+        await interaction.deferReply({ephemeral: true});
 
         /**@type {Message} */
         // @ts-ignore
@@ -31,10 +30,8 @@ module.exports = {
                     .setStyle('DANGER')
             );
         
-        interaction.user.send({embeds: [emb].concat(msg.embeds), components: [row]}).then( (message) => {
-            if(msg.attachments.size > 0){
-                interaction.user.send({files: Array.from(msg.attachments.values())});
-            }
+                
+        await interaction.user.send({embeds: [emb].concat(msg.embeds), files: Array.from(msg.attachments.values()), components: [row]}).then( (message) => {
             interaction.editReply({content: "[Message saved](" + message.url + ")"});
         });
     },

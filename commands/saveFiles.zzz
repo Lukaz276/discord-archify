@@ -1,6 +1,6 @@
 const { ContextMenuCommandBuilder } = require('@discordjs/builders');
 // @ts-ignore
-const { MessageContextMenuInteraction, Message, Collection, MessageAttachment, MessageEmbed } = require('discord.js');
+const { MessageContextMenuInteraction, Message, MessageEmbed, MessageActionRow, MessageButton } = require('discord.js');
 
 module.exports = {
     data: new ContextMenuCommandBuilder()
@@ -21,8 +21,16 @@ module.exports = {
             .setAuthor({ name: msg.author.username+":", iconURL: msg.author.avatarURL(), url: msg.url})
             .setColor('#2f3136')
             .setTimestamp(msg.createdTimestamp);
-            
-        interaction.user.send({embeds: [emb].concat(msg.embeds)}).then( (message) => {
+        
+        const row = new MessageActionRow()  
+            .addComponents(
+                new MessageButton()
+                    .setCustomId('delete')
+                    .setLabel('Delete')
+                    .setStyle('DANGER')
+            );
+
+        interaction.user.send({embeds: [emb].concat(msg.embeds), components: [row]}).then( (message) => {
             interaction.user.send({files: Array.from(msg.attachments.values())});
             interaction.editReply({content: "[Message saved](" + message.url + ")"});
         });
