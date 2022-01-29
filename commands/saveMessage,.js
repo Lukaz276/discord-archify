@@ -18,7 +18,7 @@ module.exports = {
 
         const emb = new MessageEmbed()
             .setAuthor({ name: msg.author.username, iconURL: msg.author.avatarURL(), url: msg.url})
-            .setDescription("> "+msg.content.replace("\n", "\n> "))
+            .setDescription((msg.content.length > 0)? "> "+msg.content.replace("\n", "\n> "): "")
             .setColor('#2f3136')
             .setTimestamp(msg.createdTimestamp);
 
