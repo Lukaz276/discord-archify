@@ -1,6 +1,5 @@
-const { ContextMenuCommandBuilder, SlashCommandBuilder } = require('@discordjs/builders');
+const { SlashCommandBuilder } = require('@discordjs/builders');
 const { CommandInteraction, TextChannel } = require('discord.js');
-const { id } = require('../config.json');
 
 module.exports = {
     data: new SlashCommandBuilder()

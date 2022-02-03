@@ -1,5 +1,5 @@
 const { ContextMenuCommandBuilder } = require('@discordjs/builders');
-const { MessageContextMenuInteraction, Message, MessageEmbed, MessageActionRow, MessageButton, MessageAttachment } = require('discord.js');
+const { MessageContextMenuInteraction, Message, MessageEmbed, MessageActionRow, MessageButton } = require('discord.js');
 
 module.exports = {
     data: new ContextMenuCommandBuilder()
@@ -10,6 +10,12 @@ module.exports = {
      * @param {MessageContextMenuInteraction} interaction
      */
     async execute(interaction){
+
+        if(!interaction.inGuild()){
+            interaction.reply({content: "Why would you save a message again?\nThis command only works in servers!", ephemeral:true})
+            return;
+        }
+
         await interaction.deferReply({ephemeral: true});
 
         /**@type {Message} */
@@ -18,8 +24,9 @@ module.exports = {
 
         const emb = new MessageEmbed()
             .setAuthor({ name: msg.author.username, iconURL: msg.author.avatarURL(), url: msg.url})
-            .setDescription((msg.content.length > 0)? "> "+msg.content.replace("\n", "\n> "): "")
+            .setDescription((msg.content.length > 0)? "> "+msg.content.replace("\n", "\n> ") : "")
             .setColor('#2f3136')
+            .setFooter({text: interaction.guild.name})
             .setTimestamp(msg.createdTimestamp);
 
         const row = new MessageActionRow()  

@@ -11,5 +11,14 @@
     "debug": "node index.js debug",
     "deploy": "node deploy_commands.js",
     "deploy-guild": "node deploy_guild_commands.js"
-  }
+  },
+  "version": "1.0",
+  "name": "archify",
+  "description": "A discord bot that let's you save messages",
+  "homepage": "https://github.com/Lukaz276/discord-archify",
+  "bugs": {
+    "url": "https://github.com/Lukaz276/discord-archify/issues"
+  },
+  "author": "lukaz",
+  "license": "GNU General Public License v3.0"
 }
