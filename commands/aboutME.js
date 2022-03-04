@@ -14,7 +14,7 @@ module.exports = {
             .setTitle("Archify")
             .setThumbnail(interaction.client.user.avatarURL())
             .setDescription("Archify is a bot to save messages and images sent server.")
-            .addField("Developer:", "lukaz", true)
+            .addField("Developer:", "lukaz#7787", true)
             .addField("Issues/Suggestions", "[GitHub](https://github.com/zelythia/discord-archify/issues) or [Twitter](https://twitter.com/zelythia)", true);
 
         const row = new MessageActionRow()  
