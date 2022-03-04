@@ -5,4 +5,5 @@ Archify is a bot to save messages and images sent server.<br />
 No one has access to your saved messages and no one can see if you save a message. 
 
 <hr>
-![Save](https://github.com/zelythia/discord-archify/blob/main/images/save.png?raw=true)
+
+![Save](https://github.com/zelythia/discord-archify/blob/main/images/save.png?raw=true) ![Saved Message](https://github.com/zelythia/discord-archify/blob/main/images/savedMessage.png?raw=true)
