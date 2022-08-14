@@ -12,7 +12,7 @@ module.exports = {
     async execute(interaction){
 
         if(!interaction.inGuild()){
-            interaction.reply({content: "Why would you save a message again?\nThis command only works in servers!", ephemeral:true})
+            interaction.reply({content: "Why would you save a message again?\nThis command only works in servers!", ephemeral:true});
             return;
         }
 
