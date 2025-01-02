@@ -20,7 +20,7 @@ module.exports = {
         let newAttachments = Array.from(msg.attachments.values())
 
         const emb = new EmbedBuilder()
-            .setAuthor({ name: msg.author.username, iconURL: msg.author.avatarURL(), url: msg.url})
+            .setAuthor({ name: msg.author.displayName , iconURL: msg.author.avatarURL(), url: msg.url})
             .setDescription((msg.content.length > 0)? "> "+msg.content.replace("\n", "\n> ") : null)
             .setColor('#2f3136')
             .setURL(msg.url)
