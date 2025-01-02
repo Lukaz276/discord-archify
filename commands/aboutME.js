@@ -23,12 +23,12 @@ module.exports = {
             .addComponents(
                 new ButtonBuilder()
                     .setLabel('Invite')
-                    .setURL('https://discord.com/oauth2/authorize?client_id=936276333309337622&scope=bot%20applications.commands&permissions=1024')
+                    .setURL('https://discord.com/oauth2/authorize?client_id=936276333309337622')
                     .setStyle(ButtonStyle.Link),
                 new ButtonBuilder()
                     .setLabel('Source')
                     .setStyle(ButtonStyle.Link)
-                    .setURL('https://github.com/Lukaz276/discord-archify') 
+                    .setURL('https://github.com/zelythia/discord-archify') 
             );
 
 
