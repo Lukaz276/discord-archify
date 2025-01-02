@@ -1,44 +1,53 @@
 const { ContextMenuCommandBuilder } = require('@discordjs/builders');
-const { MessageContextMenuInteraction, Message, MessageEmbed, MessageActionRow, MessageButton } = require('discord.js');
+const { EmbedBuilder, MessageContextMenuCommandInteraction, ApplicationCommandType, ButtonBuilder, ButtonStyle, ActionRowBuilder } = require('discord.js');
 
 module.exports = {
     data: new ContextMenuCommandBuilder()
         .setName("Save")
-        .setType(3),
+        .setType(ApplicationCommandType.Message)
+        .setIntegrationTypes(0,1)
+        .setContexts(0,1,2), //https://discord.com/developers/docs/interactions/application-commands#interaction-contexts
+    
 
     /**
-     * @param {MessageContextMenuInteraction} interaction
+     * @param {MessageContextMenuCommandInteraction} interaction
      */
     async execute(interaction){
-
-        if(!interaction.inGuild()){
-            interaction.reply({content: "Why would you save a message again?\nThis command only works in servers!", ephemeral:true});
-            return;
-        }
-
         await interaction.deferReply({ephemeral: true});
 
-        /**@type {Message} */
-        // @ts-ignore
         var msg = interaction.targetMessage;
 
-        const emb = new MessageEmbed()
+        let newAttachments = Array.from(msg.attachments.values())
+
+        const emb = new EmbedBuilder()
             .setAuthor({ name: msg.author.username, iconURL: msg.author.avatarURL(), url: msg.url})
-            .setDescription((msg.content.length > 0)? "> "+msg.content.replace("\n", "\n> ") : "")
+            .setDescription((msg.content.length > 0)? "> "+msg.content.replace("\n", "\n> ") : null)
             .setColor('#2f3136')
-            .setFooter({text: interaction.guild.name})
+            .setURL(msg.url)
             .setTimestamp(msg.createdTimestamp);
 
-        const row = new MessageActionRow()  
+        if(msg.content.startsWith("```") && msg.content.endsWith("```")){
+            emb.setDescription(msg.content)
+        }
+
+        if(interaction.inCachedGuild()){
+            emb.setFooter({text: interaction.guild.name + ": " +  interaction.channel?.name, iconURL: interaction.guild.iconURL()})
+        }
+
+        const row = new ActionRowBuilder()  
             .addComponents(
-                new MessageButton()
+                new ButtonBuilder()
+                    .setLabel('Message')
+                    .setURL(msg.url)
+                    .setStyle(ButtonStyle.Link),
+                new ButtonBuilder()
                     .setCustomId('delete')
                     .setLabel('Delete')
-                    .setStyle('DANGER')
+                    .setStyle(ButtonStyle.Danger),
             );
         
                 
-        await interaction.user.send({embeds: [emb].concat(msg.embeds), files: Array.from(msg.attachments.values()), components: [row]}).then( (message) => {
+        await interaction.user.send({embeds: [emb].concat(msg.embeds), files: newAttachments, components: [row]}).then( (message) => {
             interaction.editReply({content: "[Message saved](" + message.url + ")"});
         });
     },

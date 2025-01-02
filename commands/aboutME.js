@@ -1,5 +1,5 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
-const { MessageEmbed, CommandInteraction, MessageActionRow, MessageButton } = require('discord.js');
+const { CommandInteraction, EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js');
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -10,22 +10,24 @@ module.exports = {
      */
     async execute(interaction){
 
-        const emb = new MessageEmbed()
+        const emb = new EmbedBuilder()
             .setTitle("Archify")
             .setThumbnail(interaction.client.user.avatarURL())
             .setDescription("Archify is a bot to save messages and images sent server.")
-            .addField("Developer:", "lukaz#7787", true)
-            .addField("Issues/Suggestions", "[GitHub](https://github.com/zelythia/discord-archify/issues) or [Twitter](https://twitter.com/zelythia)", true);
+            .addFields([
+                {name: "Developer", value:"lukaz#7787", inline: true},
+                {name: "Issues/Suggestions", value:"[GitHub](https://github.com/zelythia/discord-archify/issues) or [Twitter](https://twitter.com/zelythia)", inline: true},
+            ]);
 
-        const row = new MessageActionRow()  
+        const row = new ActionRowBuilder()  
             .addComponents(
-                new MessageButton()
+                new ButtonBuilder()
                     .setLabel('Invite')
                     .setURL('https://discord.com/oauth2/authorize?client_id=936276333309337622&scope=bot%20applications.commands&permissions=1024')
-                    .setStyle('LINK'),
-                new MessageButton()
+                    .setStyle(ButtonStyle.Link),
+                new ButtonBuilder()
                     .setLabel('Source')
-                    .setStyle('LINK')
+                    .setStyle(ButtonStyle.Link)
                     .setURL('https://github.com/Lukaz276/discord-archify') 
             );
 

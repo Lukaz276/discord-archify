@@ -1,4 +1,4 @@
-const {ButtonInteraction, Message, TextChannel} = require('discord.js');
+const {ButtonInteraction, TextChannel} = require('discord.js');
 const {id} = require('../config.json');
 
 module.exports = {

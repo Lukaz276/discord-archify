@@ -1,8 +1,9 @@
-const { Client, Intents, Collection } = require('discord.js');
+const { Client, Collection, GatewayIntentBits  } = require('discord.js');
 const fs = require('fs');
 
 const { token } = require('./config.json');
-const client = new Client({intents: [Intents.FLAGS.GUILDS]});
+// const client = new Client({intents: []});
+const client = new Client({intents: [GatewayIntentBits.Guilds,]});
 
 
 /**
@@ -47,7 +48,7 @@ client.on('interactionCreate', async interaction => {
 			await interaction.reply({ content: 'There was an error while executing this command!', ephemeral: true });
 		}
 	}
-	else if(interaction.isMessageContextMenu()){
+	else if(interaction.isContextMenuCommand()){
 		// @ts-ignore
 		const command = client.commands.get(interaction.commandName);
 
