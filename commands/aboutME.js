@@ -15,7 +15,7 @@ module.exports = {
             .setThumbnail(interaction.client.user.avatarURL())
             .setDescription("Archify is a bot to save messages and images sent server.")
             .addFields([
-                {name: "Developer", value:"lukaz#7787", inline: true},
+                {name: "Developer", value:"zelythia", inline: true},
                 {name: "Issues/Suggestions", value:"[GitHub](https://github.com/zelythia/discord-archify/issues) or [Twitter](https://twitter.com/zelythia)", inline: true},
             ]);
 
